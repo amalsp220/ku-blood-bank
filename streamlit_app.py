@@ -56,7 +56,10 @@ def set_custom_css():
 def main():
     set_custom_css()
     
-    st.title("🩸അഭിമന്യു രക്തദാനസേന")
+    st.markdown("""
+    <h1 style="font-size:2em;">🩸 അഭിമന്യു രക്തദാനസേന</h1>
+    <h3 style="font-size:0.75em; text-transform: uppercase;">SFI Kerala University Campus</h3>
+    """, unsafe_allow_html=True)
 
     # Fetch data
     data = fetch_data()
