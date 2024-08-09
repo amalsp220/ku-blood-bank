@@ -7,6 +7,8 @@ def fetch_data():
     sheet_id = "1HLUqSBonN3aSEdwITPM-PmQHis1uvh-4nZaTHclL4xE"
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv"
     data = pd.read_csv(url)
+    # Convert 'CONTACT NUMBER' to string and remove decimal points
+    data['CONTACT NUMBER'] = data['CONTACT NUMBER'].astype(str).str.replace('.0', '', regex=False)
     return data
 
 # Function to filter data by blood group
@@ -29,12 +31,23 @@ def set_custom_css():
         background-color: #ffffff;
     }
     .stExpander {
-        background-color: #ffffff;
+        background-color: #ffcdd2;
     }
     @media (max-width: 768px) {
         .stExpander {
             font-size: 14px;
         }
+    }
+    .creator {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #ffffff;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-weight: bold;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -67,6 +80,16 @@ def main():
                         st.markdown(f"**Department:** {donor['DEPARTMENT']}")
                         contact = donor['CONTACT NUMBER']
                         st.markdown(f"**Contact:** [{contact}](tel:{contact})")
+
+    # Add creator's name at the bottom
+    st.markdown(
+        """
+        <div class="creator">
+        Created by AMAL SIVA
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 if __name__ == "__main__":
     main()
